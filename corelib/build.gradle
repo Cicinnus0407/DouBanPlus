@@ -1,0 +1,66 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion rootProject.ext.android["compileSdkVersion"]
+
+
+    defaultConfig {
+
+        minSdkVersion rootProject.ext.android["minSdkVersion"]
+        targetSdkVersion rootProject.ext.android["targetSdkVersion"]
+        versionCode rootProject.ext.android["versionCode"]
+        versionName rootProject.ext.android["versionName"]
+        testInstrumentationRunner rootProject.ext.dependencies["androidJUnitRunner"]
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    //    SupportDesign
+    api rootProject.ext.dependencies["design"]
+    //AppCompat-v7
+    api rootProject.ext.dependencies["appcompat-v7"]
+    //Annotation
+    api rootProject.ext.dependencies["annotations"]
+    //CardView
+    api rootProject.ext.dependencies["cardview-v7"]
+    //RecyclerView
+    api rootProject.ext.dependencies["recyclerview-v7"]
+    //RxAndroid
+    api rootProject.ext.dependencies["rxandroid2"]
+    //RxJava2
+    api rootProject.ext.dependencies["rxjava2"]
+    //Retrofit2
+    api rootProject.ext.dependencies["retrofit2"]
+    //OkHttp
+    api rootProject.ext.dependencies["okhttp3"]
+    //OKHttp拦截器
+    api rootProject.ext.dependencies["okhttp3-intercepter"]
+    //RxJava2Gson适配
+    api rootProject.ext.dependencies["retrofit2-converter-gson"]
+    //网络日志拦截
+    api rootProject.ext.dependencies["okhttp3-intercepter"]
+    //ButterKnife
+    api rootProject.ext.dependencies["butterknife"]
+    //Glide
+    api rootProject.ext.dependencies["glide"]
+//    implementation rootProject.ext.dependencies["glideProcessor"]
+    //BaseRecyclerViewAdapterHelper
+    api rootProject.ext.dependencies["BRVAH"]
+    //日志
+    api 'com.orhanobut:logger:2.1.1'
+}
