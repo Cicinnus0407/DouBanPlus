@@ -2,6 +2,8 @@ package com.cicinnus.corelib.base;
 
 import android.app.Activity;
 import android.content.Context;
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -23,6 +25,8 @@ public abstract class BaseMvpFragment<T extends ICorePresenter> extends Fragment
     private boolean isLoad;
     private View rootView;
     private Unbinder mUnbinder;
+    protected ViewDataBinding dataBinding;
+    private boolean enableDataBinding = false;
 
     @Override
     public void onAttach(Context context) {
@@ -33,10 +37,20 @@ public abstract class BaseMvpFragment<T extends ICorePresenter> extends Fragment
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(getLayoutId(), container, false);
+        enableDataBinding = getDataBindingEnable();
+        if (enableDataBinding) {
+            dataBinding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false);
+        } else {
+            rootView = inflater.inflate(getLayoutId(), container, false);
+        }
         isInit = true;
         mUnbinder = ButterKnife.bind(this, rootView);
-        return rootView;
+        return enableDataBinding ? dataBinding.getRoot() : rootView;
+    }
+
+
+    protected boolean getDataBindingEnable() {
+        return false;
     }
 
 

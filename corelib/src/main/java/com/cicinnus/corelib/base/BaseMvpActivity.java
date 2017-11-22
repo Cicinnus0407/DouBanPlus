@@ -1,5 +1,7 @@
 package com.cicinnus.corelib.base;
 
+import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import butterknife.Unbinder;
 
 /**
  * BaseActivity,可选支持Databinding
+ *
  * @author Cicinnus
  */
 
@@ -16,13 +19,19 @@ public abstract class BaseMvpActivity<T extends ICorePresenter> extends AppCompa
     protected AppCompatActivity mContext;
     protected T mPresenter;
     private Unbinder unbinder;
-
+    private boolean enableDataBinding = false;
+    protected ViewDataBinding baseDataBinding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getLayout() != 0) {
-            setContentView(getLayout());
+        enableDataBinding = getDataBindingEnable();
+        if (enableDataBinding) {
+            baseDataBinding = DataBindingUtil.setContentView(this, getLayout());
+        } else {
+            if (getLayout() != 0) {
+                setContentView(getLayout());
+            }
         }
         unbinder = ButterKnife.bind(this);
         mContext = this;
@@ -31,6 +40,10 @@ public abstract class BaseMvpActivity<T extends ICorePresenter> extends AppCompa
         initEventAndData();
     }
 
+
+    protected boolean getDataBindingEnable() {
+        return false;
+    }
 
     /**
      * onStop方法调用Presenter的取消调用链方法

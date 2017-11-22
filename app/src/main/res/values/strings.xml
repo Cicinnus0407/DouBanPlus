@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">DouBanPlus</string>
+    <string name="menu_movie">Movies</string>
+    <string name="menu_camera">Camera</string>
+    <string name="menu_pic">Pictures</string>
+    <string name="menu_star" >Star</string>
 </resources>
