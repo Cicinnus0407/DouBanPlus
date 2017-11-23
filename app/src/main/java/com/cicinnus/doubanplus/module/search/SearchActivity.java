@@ -5,6 +5,8 @@ import android.app.SharedElementCallback;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.transition.TransitionSet;
 import android.view.View;
@@ -16,7 +18,9 @@ import com.cicinnus.doubanplus.R;
 import com.cicinnus.doubanplus.base.BaseActivity;
 import com.cicinnus.doubanplus.ui.transitions.CircularReveal;
 import com.cicinnus.doubanplus.utils.KeyBoardUtils;
+import com.cicinnus.doubanplus.utils.ToastUtil;
 import com.cicinnus.doubanplus.utils.TransitionUtils;
+import com.cicinnus.doubanplus.view.ProgressLayout;
 
 import java.util.List;
 
@@ -29,18 +33,31 @@ import butterknife.OnClick;
  *         搜索Activity
  */
 
-public class SearchActivity extends BaseActivity {
+public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implements SearchMovieContract.ISearchMoviesView {
 
 
     @BindView(R.id.search_view)
     SearchView searchView;
     @BindView(R.id.searchback)
     ImageButton searchBack;
+    @BindView(R.id.progress_layout)
+    ProgressLayout progressLayout;
+    @BindView(R.id.search_results)
+    RecyclerView rvSearchResult;
 
+
+    private SearchMoviesAdapter searchMoviesAdapter;
+    private int start = 0;
+    private String keyword = "";
 
     @Override
     protected int getLayoutId() {
         return R.layout.activity_search;
+    }
+
+    @Override
+    protected SearchMoviesPresenter getCorePresenter() {
+        return new SearchMoviesPresenter(mContext, this);
     }
 
     @Override
@@ -54,6 +71,9 @@ public class SearchActivity extends BaseActivity {
     }
 
     private void initRv() {
+        rvSearchResult.setLayoutManager(new LinearLayoutManager(mContext));
+        searchMoviesAdapter = new SearchMoviesAdapter();
+        rvSearchResult.setAdapter(searchMoviesAdapter);
     }
 
 
@@ -134,6 +154,9 @@ public class SearchActivity extends BaseActivity {
      * @param query
      */
     private void searchFor(String query) {
+        keyword = query;
+        start = 0;
+        mPresenter.searchMovies(keyword, start);
 
     }
 
@@ -141,7 +164,8 @@ public class SearchActivity extends BaseActivity {
      * 清空搜索内容
      */
     private void clearResults() {
-
+        searchMoviesAdapter.getData().clear();
+        searchMoviesAdapter.notifyDataSetChanged();
     }
 
 
@@ -156,5 +180,50 @@ public class SearchActivity extends BaseActivity {
     public void onEnterAnimationComplete() {
         searchView.requestFocus();
         KeyBoardUtils.showKeyBoard(searchView);
+    }
+
+    @Override
+    public void showLoading() {
+        progressLayout.showLoading();
+    }
+
+    @Override
+    public void showContent() {
+        if (!progressLayout.isContent()) {
+            progressLayout.showContent();
+        }
+    }
+
+    @Override
+    public void showError(String errorMsg) {
+        ToastUtil.showToast(errorMsg);
+        progressLayout.showError(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mPresenter.searchMovies(keyword, start);
+            }
+        });
+    }
+
+    @Override
+    public void addMoreSearchResult(List<SearchResultBean.SubjectsBean> subjects) {
+        if (subjects.size() > 0) {
+            searchMoviesAdapter.addData(subjects);
+            searchMoviesAdapter.loadMoreComplete();
+            start += 10;
+        }
+    }
+
+    @Override
+    public void addSearchResult(List<SearchResultBean.SubjectsBean> subjects) {
+        searchMoviesAdapter.setNewData(subjects);
+        start = 10;
+
+    }
+
+    @Override
+    public void loadMoreError(String s) {
+        ToastUtil.showToast(s);
+        searchMoviesAdapter.loadMoreFail();
     }
 }

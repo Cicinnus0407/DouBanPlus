@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="114dp"
+    android:background="@color/white"
+    android:foreground="?selectableItemBackground"
+    android:minHeight="?android:listPreferredItemHeight">
+
+    <FrameLayout
+        android:id="@+id/fl_wait_movie_iv"
+        android:layout_width="64dp"
+        android:layout_height="90dp"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_10">
+
+        <ImageView
+            android:id="@+id/iv_wait_movie"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_wait_movie_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_14"
+        android:layout_toRightOf="@id/fl_wait_movie_iv">
+
+        <TextView
+            android:id="@+id/tv_movie_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/sp_16"
+            tools:text="健忘村" />
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_movie_casts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/ll_wait_movie_name"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginTop="@dimen/dp_8"
+        android:layout_toRightOf="@id/fl_wait_movie_iv"
+        android:maxLines="1"
+        tools:text="影片主演" />
+
+    <!--<com.cicinnus.doubanplus.view.RatingBar-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_below="@id/tv_movie_casts"-->
+        <!--android:layout_marginLeft="@dimen/dp_10"-->
+        <!--android:layout_marginTop="@dimen/dp_14"-->
+        <!--android:layout_toRightOf="@id/fl_wait_movie_iv"-->
+        <!--app:clickable="false"-->
+        <!--app:starEmpty="@drawable/icon_star_gray"-->
+        <!--app:starFill="@drawable/icon_star_yellow"-->
+        <!--app:starImageSize="14dp"-->
+        <!--app:starPadding="6dp"-->
+        <!--app:starStep="0"-->
+        <!--app:stepSize="Half" />-->
+
+
+</RelativeLayout>

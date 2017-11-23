@@ -7,4 +7,5 @@
     <dimen name="dp_32">32dp</dimen>
     <dimen name="display_4_text_size">112sp</dimen>
     <dimen name="dp_12">12dp</dimen>
+    <dimen name="dp_14">14dp</dimen>
 </resources>

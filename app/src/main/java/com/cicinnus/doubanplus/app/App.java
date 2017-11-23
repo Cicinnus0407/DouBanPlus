@@ -23,7 +23,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
-        RetrofitClient.initUrlAndOkHttp(Constants.DOUBAN_URL, OkHttpManager.getInstance());
+        RetrofitClient.initUrlAndOkHttp(Constants.DOU_BAN_URL, OkHttpManager.getInstance());
 
     }
 

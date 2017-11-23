@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.cicinnus.doubanplus.module.movies.bean.ComingMovieBean;
 import com.cicinnus.doubanplus.module.movies.bean.InTheaterMoviesBean;
+import com.cicinnus.doubanplus.module.search.SearchResultBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -24,4 +25,8 @@ public interface Api {
     //即将上映的电影
     @GET("movie/coming_soon")
     Observable<ComingMovieBean> getComingMovies(@Query("start") int start, @Query("count") int count);
+
+    //搜索
+    @GET("movie/search")
+    Observable<SearchResultBean> searchMovies(@Query("q") String keyword, @Query("start") int start, @Query("count") int count);
 }
