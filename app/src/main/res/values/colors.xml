@@ -7,5 +7,13 @@
     <color name="white">#FFFFFF</color>
     <color name="orange_accent">#f08c26</color>
     <color name="text_primary">#000000</color>
+    <color name="text_primary_light">#ffffffff</color>
+    <color name="text_disabled_light">#4dffffff</color>
+    <color name="text_secondary">#8a000000</color>
     <color name="divider">#e6e6e6</color>
+    <color name="background_light">#fafafa</color>
+    <color name="scrim">#99323232</color>
+    <color name="mid_grey">#40808080</color>
+    <color name="grey_300">#ffe0e0e0</color>
+
 </resources>

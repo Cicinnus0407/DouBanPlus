@@ -1,38 +1,37 @@
 package com.cicinnus.doubanplus.module.movies;
 
+import android.app.ActivityOptions;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.databinding.BaseObservable;
-import android.databinding.Bindable;
-import android.databinding.Observable;
 import android.databinding.ObservableField;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.ListPopupWindow;
-import android.support.v7.widget.PagerSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.SnapHelper;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.cicinnus.corelib.utils.UiUtils;
 import com.cicinnus.doubanplus.R;
 import com.cicinnus.doubanplus.base.BaseFragment;
-import com.cicinnus.doubanplus.databinding.FragmentInTheaterMoviesBinding;
+import com.cicinnus.doubanplus.databinding.FragmentMoviesBinding;
+import com.cicinnus.doubanplus.module.about.AboutActivity;
 import com.cicinnus.doubanplus.module.movies.adapter.ComingMovieAdapter;
 import com.cicinnus.doubanplus.module.movies.adapter.InTheaterMoviesAdapter;
 import com.cicinnus.doubanplus.module.movies.bean.ComingMovieBean;
 import com.cicinnus.doubanplus.module.movies.bean.InTheaterMoviesBean;
+import com.cicinnus.doubanplus.module.search.SearchActivity;
 import com.cicinnus.doubanplus.utils.SnapHelperUtil;
 import com.cicinnus.doubanplus.utils.ToastUtil;
 import com.cicinnus.doubanplus.view.Banner;
@@ -51,7 +50,7 @@ import java.util.List;
 public class MoviesFragment extends BaseFragment<InTheaterMoviesPresenter> implements IMoviesContract.ITheaterMoviesView {
 
 
-    private FragmentInTheaterMoviesBinding binding;
+    private FragmentMoviesBinding binding;
     private Toolbar toolbar;
     //状态布局
     private ProgressLayout progressLayout;
@@ -86,11 +85,9 @@ public class MoviesFragment extends BaseFragment<InTheaterMoviesPresenter> imple
     }
 
 
-
-
     @Override
     protected int getLayout() {
-        return R.layout.fragment_in_theater_movies;
+        return R.layout.fragment_movies;
     }
 
 
@@ -114,7 +111,7 @@ public class MoviesFragment extends BaseFragment<InTheaterMoviesPresenter> imple
     @Override
     protected void initEventAndData() {
 
-        binding = (FragmentInTheaterMoviesBinding) dataBinding;
+        binding = (FragmentMoviesBinding) dataBinding;
         initView();
         //Fragment设置toolbar
         toolbar.setTitle("");
@@ -152,12 +149,33 @@ public class MoviesFragment extends BaseFragment<InTheaterMoviesPresenter> imple
         inflater.inflate(R.menu.menu_movies, menu);
     }
 
-    //点击Toolbar的Filter
+    //点击Toolbar的Menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.menu_filter) {
-            showFilterList();
+        switch (item.getItemId()) {
+
+            case R.id.menu_search:
+
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+                    View searchMenuView = toolbar.findViewById(R.id.menu_search);
+                    Bundle options = ActivityOptions.makeSceneTransitionAnimation(mContext, searchMenuView,
+                            getString(R.string.transition_search_back)).toBundle();
+                    startActivity(new Intent(mContext, SearchActivity.class), options);
+                } else {
+                    startActivity(new Intent(mContext, SearchActivity.class));
+                }
+                break;
+            case R.id.menu_filter:
+                showFilterList();
+                break;
+            case R.id.menu_about:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    startActivity(new Intent(mContext, AboutActivity.class),
+                            ActivityOptions.makeSceneTransitionAnimation(mContext).toBundle());
+                }
+                break;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -264,7 +282,7 @@ public class MoviesFragment extends BaseFragment<InTheaterMoviesPresenter> imple
 
         rvMovies.setLayoutManager(new GridLayoutManager(mContext, 2));
         comingMovieAdapter = new ComingMovieAdapter();
-        initHeader(subjects.subList(0,5));
+        initHeader(subjects.subList(0, 5));
         rvMovies.setAdapter(comingMovieAdapter);
         comingMovieAdapter.setNewData(subjects);
         comingMovieAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
@@ -278,12 +296,13 @@ public class MoviesFragment extends BaseFragment<InTheaterMoviesPresenter> imple
 
     /**
      * 初始化顶部的Banner
+     *
      * @param subjectsBeans
      */
     private void initHeader(List<ComingMovieBean.SubjectsBean> subjectsBeans) {
         List<Banner.PicBean> list = new ArrayList<>();
         for (int i = 0; i < subjectsBeans.size(); i++) {
-            list.add(new Banner.PicBean(subjectsBeans.get(i).getImages().getMedium(),i));
+            list.add(new Banner.PicBean(subjectsBeans.get(i).getImages().getMedium(), i));
 
         }
         banner = new Banner(mContext);
@@ -317,8 +336,6 @@ public class MoviesFragment extends BaseFragment<InTheaterMoviesPresenter> imple
         }
         dialog.show();
     }
-
-
 
 
     @Override

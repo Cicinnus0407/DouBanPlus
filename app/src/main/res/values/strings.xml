@@ -4,4 +4,8 @@
     <string name="menu_camera">Camera</string>
     <string name="menu_pic">Pictures</string>
     <string name="menu_star" >Star</string>
+    <string name="search">搜索</string>
+    <string name="about">关于</string>
+    <string name="transition_search_back">transition_search_back</string>
+    <string name="search_hint">电影条目搜索</string>
 </resources>

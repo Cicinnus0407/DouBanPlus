@@ -3,10 +3,6 @@ package com.cicinnus.corelib.net;
 
 import com.cicinnus.corelib.net.rxJava2_adapter.RxJava2CallAdapterFactory;
 
-import javax.inject.Singleton;
-
-import dagger.Module;
-import dagger.Provides;
 import io.reactivex.annotations.NonNull;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;

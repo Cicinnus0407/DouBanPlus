@@ -36,6 +36,8 @@ dependencies {
     api rootProject.ext.dependencies["annotations"]
     //CardView
     api rootProject.ext.dependencies["cardview-v7"]
+    //Palette
+    api rootProject.ext.dependencies["palette"]
     //RecyclerView
     api rootProject.ext.dependencies["recyclerview-v7"]
     //RxAndroid
@@ -62,7 +64,8 @@ dependencies {
     //日志
     api 'com.orhanobut:logger:2.1.1'
 
-    //Dagger2
-    api 'com.google.dagger:dagger:2.13'
-    annotationProcessor 'com.google.dagger:dagger-compiler:2.13'
+    annotationProcessor "com.github.bumptech.glide:compiler:4.3.1"
+    api "com.github.bumptech.glide:okhttp3-integration:4.3.1"
+    api "com.github.bumptech.glide:recyclerview-integration:4.3.1"
+
 }

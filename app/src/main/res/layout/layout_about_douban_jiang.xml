@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+
+
+            <com.cicinnus.doubanplus.view.CutoutTextView
+                android:layout_width="match_parent"
+                android:layout_height="224dp"
+                android:fontFamily="serif-monospace"
+                android:text="@string/app_name"
+                app:foregroundColor="@color/colorBg" />
+
+
+
+
+        <TextView
+            android:id="@+id/about_description"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/background_light"
+            android:paddingBottom="@dimen/dp_32"
+            android:paddingEnd="@dimen/dp_16"
+            android:paddingStart="@dimen/dp_16"
+            android:paddingTop="@dimen/dp_16"
+            android:textColor="@color/text_secondary"
+            android:textColorLink="@color/colorPrimary" />
+
+    </LinearLayout>
+
+</ScrollView>

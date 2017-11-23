@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<transitionSet
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:transitionOrdering="together"
+    android:duration="400"
+    android:interpolator="@android:interpolator/linear_out_slow_in">
+
+    <!--从底部滑动进入-->
+    <slide android:slideEdge="top">
+        <targets>
+            <target android:excludeId="@android:id/navigationBarBackground" />
+            <target android:excludeId="@android:id/statusBarBackground" />
+        </targets>
+    </slide>
+
+    <!--淡入,时长为400ms-->
+    <fade android:duration="@android:integer/config_mediumAnimTime">
+        <targets>
+            <!--淡入目标为状态栏和底部虚拟按钮-->
+            <target android:targetId="@android:id/navigationBarBackground" />
+            <target android:targetId="@android:id/statusBarBackground" />
+        </targets>
+    </fade>
+
+</transitionSet>
