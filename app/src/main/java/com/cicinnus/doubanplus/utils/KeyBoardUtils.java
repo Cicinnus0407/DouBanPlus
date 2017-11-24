@@ -29,12 +29,20 @@ public class KeyBoardUtils {
     private KeyBoardUtils() {
     }
 
+    /**
+     * 显示软键盘
+     * @param view
+     */
     public static void showKeyBoard(@NonNull View view) {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_NOT_ALWAYS);
 
     }
 
+    /**
+     * 隐藏软键盘
+     * @param view
+     */
     public static void hideIme(@NonNull View view) {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context
                 .INPUT_METHOD_SERVICE);

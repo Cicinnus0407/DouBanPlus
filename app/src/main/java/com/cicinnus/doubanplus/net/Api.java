@@ -4,10 +4,12 @@ import android.support.annotation.Nullable;
 
 import com.cicinnus.doubanplus.module.movies.bean.ComingMovieBean;
 import com.cicinnus.doubanplus.module.movies.bean.InTheaterMoviesBean;
+import com.cicinnus.doubanplus.module.movies_detail.MovieDetailBean;
 import com.cicinnus.doubanplus.module.search.SearchResultBean;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 /**
@@ -29,4 +31,8 @@ public interface Api {
     //搜索
     @GET("movie/search")
     Observable<SearchResultBean> searchMovies(@Query("q") String keyword, @Query("start") int start, @Query("count") int count);
+
+    //影片详情
+    @GET("movie/subject/{movieId}")
+    Observable<MovieDetailBean> getMovieDetail(@Path("movieId") String movieId);
 }

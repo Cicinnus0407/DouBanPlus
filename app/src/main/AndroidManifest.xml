@@ -27,7 +27,11 @@
         <!--搜索-->
         <activity
             android:name=".module.search.SearchActivity"
-            android:theme="@style/Search" />
+            android:theme="@style/Search"/>
+        <!--电影详情页-->
+        <activity
+            android:name=".module.movies_detail.MovieDetailActivity"
+            android:theme="@style/MovieDetail" />
     </application>
 
 </manifest>

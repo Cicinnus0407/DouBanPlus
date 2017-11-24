@@ -10,6 +10,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 
+/**
+ * 自定义OkHttpClient
+ */
 public class OkHttpManager {
 
     public static OkHttpClient getInstance() {

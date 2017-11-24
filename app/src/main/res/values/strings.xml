@@ -8,4 +8,6 @@
     <string name="about">关于</string>
     <string name="transition_search_back">transition_search_back</string>
     <string name="search_hint">电影条目搜索</string>
+    <string name="transition_movie_img">transition_movie_img</string>
+    <string name="transition_movie_background">transition_movie_background</string>
 </resources>

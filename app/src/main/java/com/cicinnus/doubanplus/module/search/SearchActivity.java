@@ -2,20 +2,31 @@ package com.cicinnus.doubanplus.module.search;
 
 import android.app.SearchManager;
 import android.app.SharedElementCallback;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.annotation.TransitionRes;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.transition.Transition;
+import android.transition.TransitionInflater;
 import android.transition.TransitionSet;
+import android.util.SparseArray;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.SearchView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.animation.SlideInBottomAnimation;
 import com.cicinnus.doubanplus.R;
 import com.cicinnus.doubanplus.base.BaseActivity;
+import com.cicinnus.doubanplus.module.movies_detail.MovieDetailActivity;
 import com.cicinnus.doubanplus.ui.transitions.CircularReveal;
 import com.cicinnus.doubanplus.utils.KeyBoardUtils;
 import com.cicinnus.doubanplus.utils.ToastUtil;
@@ -44,6 +55,8 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
     ProgressLayout progressLayout;
     @BindView(R.id.search_results)
     RecyclerView rvSearchResult;
+    @BindView(R.id.container)
+    FrameLayout container;
 
 
     private SearchMoviesAdapter searchMoviesAdapter;
@@ -70,10 +83,39 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
         initRv();
     }
 
+
+    /**
+     * 初始化Rv
+     */
     private void initRv() {
-        rvSearchResult.setLayoutManager(new LinearLayoutManager(mContext));
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mContext);
+        rvSearchResult.setLayoutManager(linearLayoutManager);
+        rvSearchResult.setHasFixedSize(true);
+
         searchMoviesAdapter = new SearchMoviesAdapter();
+
+        searchMoviesAdapter.setOnMovieItemClickListener(new SearchMoviesAdapter.OnMovieItemClickListener() {
+            @Override
+            public void onClick(View view, SearchResultBean.SubjectsBean bean) {
+                Intent intent = new Intent();
+                intent.setClass(mContext, MovieDetailActivity.class);
+                ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
+                        Pair.create(view, mContext.getString(R.string.transition_movie_img)));
+                startActivity(intent, options.toBundle());
+            }
+        });
+
         rvSearchResult.setAdapter(searchMoviesAdapter);
+        //加载更多的动画
+        searchMoviesAdapter.openLoadAnimation(new SlideInBottomAnimation());
+        searchMoviesAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                mPresenter.searchMovies(keyword, start);
+            }
+        }, rvSearchResult);
+
+
     }
 
 
@@ -112,6 +154,7 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         searchView.setQueryHint(getString(R.string.search_hint));
+
         searchView.setImeOptions(searchView.getImeOptions() | EditorInfo.IME_ACTION_SEARCH |
                 EditorInfo.IME_FLAG_NO_EXTRACT_UI | EditorInfo.IME_FLAG_NO_FULLSCREEN);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -137,6 +180,21 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
         });
     }
 
+    private SparseArray<Transition> transitions = new SparseArray<>();
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private Transition getTransition(@TransitionRes int transitionId) {
+        Transition transition = transitions.get(transitionId);
+        if (transition == null) {
+            transition = TransitionInflater.from(mContext).inflateTransition(transitionId);
+            transitions.put(transitionId, transition);
+        }
+        return transition;
+    }
+
+    /**
+     * 点解半透明view和搜索按钮关闭activity
+     */
     @OnClick({R.id.scrim, R.id.searchback})
     protected void dismiss() {
         searchBack.setBackground(null);
@@ -156,6 +214,8 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
     private void searchFor(String query) {
         keyword = query;
         start = 0;
+        KeyBoardUtils.hideIme(searchView);
+        searchView.clearFocus();
         mPresenter.searchMovies(keyword, start);
 
     }
@@ -216,6 +276,7 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
 
     @Override
     public void addSearchResult(List<SearchResultBean.SubjectsBean> subjects) {
+
         searchMoviesAdapter.setNewData(subjects);
         start = 10;
 
@@ -226,4 +287,6 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
         ToastUtil.showToast(s);
         searchMoviesAdapter.loadMoreFail();
     }
+
+
 }

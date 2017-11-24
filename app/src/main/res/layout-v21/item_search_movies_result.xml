@@ -7,7 +7,8 @@
     android:background="@color/colorBg"
     android:clickable="true"
     android:foreground="?selectableItemBackground"
-    android:minHeight="?android:listPreferredItemHeight">
+    android:minHeight="?android:listPreferredItemHeight"
+    android:stateListAnimator="@animator/animator_raise">
 
 
     <ImageView
@@ -15,7 +16,8 @@
         android:layout_width="64dp"
         android:layout_height="90dp"
         android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_10"/>
+        android:layout_marginTop="@dimen/dp_10"
+        android:transitionName="@string/transition_movie_img" />
 
 
     <LinearLayout

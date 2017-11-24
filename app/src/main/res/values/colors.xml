@@ -10,6 +10,7 @@
     <color name="text_primary_light">#ffffffff</color>
     <color name="text_disabled_light">#4dffffff</color>
     <color name="text_secondary">#8a000000</color>
+    <color name="text_secondary_light">#b3ffffff</color>
     <color name="divider">#e6e6e6</color>
     <color name="background_light">#fafafa</color>
     <color name="scrim">#99323232</color>
