@@ -33,9 +33,10 @@ import java.util.HashMap;
 /**
  * Utility methods for working with animations.
  */
- public class AnimUtils {
+public class AnimUtils {
 
-    private AnimUtils() { }
+    private AnimUtils() {
+    }
 
     private static Interpolator fastOutSlowIn;
     private static Interpolator fastOutLinearIn;
@@ -92,6 +93,7 @@ import java.util.HashMap;
         }
 
         public abstract void set(T object, int value);
+
         public abstract int get(T object);
     }
 
@@ -140,6 +142,7 @@ import java.util.HashMap;
         }
 
         public abstract void set(T object, float value);
+
         public abstract float get(T object);
     }
 
@@ -244,10 +247,7 @@ import java.util.HashMap;
 
         @Override
         public boolean isPaused() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-                return mAnimator.isPaused();
-            }
-            return false;
+            return mAnimator.isPaused();
         }
 
         @Override

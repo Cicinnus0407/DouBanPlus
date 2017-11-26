@@ -251,7 +251,6 @@ public class ElasticDragDismissFrameLayout extends FrameLayout {
         private final int navBarAlpha;
         private final boolean fadeNavBar;
 
-        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         public SystemChromeFader(Activity activity) {
             this.activity = activity;
             statusBarAlpha = Color.alpha(activity.getWindow().getStatusBarColor());
@@ -262,31 +261,27 @@ public class ElasticDragDismissFrameLayout extends FrameLayout {
         @Override
         public void onDrag(float elasticOffset, float elasticOffsetPixels,
                            float rawOffset, float rawOffsetPixels) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-                if (elasticOffsetPixels > 0) {
-                    // dragging downward, fade the status bar in proportion
-                    activity.getWindow().setStatusBarColor(ColorUtils.modifyAlpha(activity.getWindow()
-                            .getStatusBarColor(), (int) ((1f - rawOffset) * statusBarAlpha)));
-                } else if (elasticOffsetPixels == 0) {
-                    // reset
-                    activity.getWindow().setStatusBarColor(ColorUtils.modifyAlpha(
-                            activity.getWindow().getStatusBarColor(), statusBarAlpha));
-                    activity.getWindow().setNavigationBarColor(ColorUtils.modifyAlpha(
-                            activity.getWindow().getNavigationBarColor(), navBarAlpha));
-                } else if (fadeNavBar) {
-                    // dragging upward, fade the navigation bar in proportion
-                    activity.getWindow().setNavigationBarColor(
-                            ColorUtils.modifyAlpha(activity.getWindow().getNavigationBarColor(),
-                                    (int) ((1f - rawOffset) * navBarAlpha)));
-                }
+            if (elasticOffsetPixels > 0) {
+                // dragging downward, fade the status bar in proportion
+                activity.getWindow().setStatusBarColor(ColorUtils.modifyAlpha(activity.getWindow()
+                        .getStatusBarColor(), (int) ((1f - rawOffset) * statusBarAlpha)));
+            } else if (elasticOffsetPixels == 0) {
+                // reset
+                activity.getWindow().setStatusBarColor(ColorUtils.modifyAlpha(
+                        activity.getWindow().getStatusBarColor(), statusBarAlpha));
+                activity.getWindow().setNavigationBarColor(ColorUtils.modifyAlpha(
+                        activity.getWindow().getNavigationBarColor(), navBarAlpha));
+            } else if (fadeNavBar) {
+                // dragging upward, fade the navigation bar in proportion
+                activity.getWindow().setNavigationBarColor(
+                        ColorUtils.modifyAlpha(activity.getWindow().getNavigationBarColor(),
+                                (int) ((1f - rawOffset) * navBarAlpha)));
             }
         }
 
         public void onDragDismissed() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                activity.finishAfterTransition();
-            }
+            activity.finishAfterTransition();
         }
     }
 

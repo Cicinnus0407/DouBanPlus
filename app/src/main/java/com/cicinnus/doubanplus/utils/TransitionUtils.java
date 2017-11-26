@@ -33,7 +33,6 @@ import java.util.List;
 /**
  * Utility methods for working with transitions
  */
-@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class TransitionUtils {
 
     private TransitionUtils() {

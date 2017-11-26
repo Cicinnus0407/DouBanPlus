@@ -35,7 +35,6 @@ import com.cicinnus.doubanplus.view.draw_view.ViewUtils;
 /**
  * A transition which fades in/out the background {@link Drawable} of a View.
  */
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class BackgroundFade extends Visibility {
 
     public BackgroundFade() {

@@ -1,5 +1,7 @@
 package com.cicinnus.doubanplus.module.movies_detail;
 
+import com.cicinnus.doubanplus.module.movies_detail.model.MovieDetailModel;
+
 import java.util.List;
 
 /**
@@ -67,6 +69,7 @@ public class MovieDetailBean {
     private List<CastsBean> casts;
     private List<DirectorsBean> directors;
     private List<String> aka;
+    private MovieDetailModel movieDetailModel;
 
     public RatingBean getRating() {
         return rating;
@@ -282,6 +285,14 @@ public class MovieDetailBean {
 
     public void setAka(List<String> aka) {
         this.aka = aka;
+    }
+
+    public MovieDetailModel getMovieDetailModel() {
+        return movieDetailModel;
+    }
+
+    public void setMovieDetailModel(MovieDetailModel movieDetailModel) {
+        this.movieDetailModel = movieDetailModel;
     }
 
     public static class RatingBean {

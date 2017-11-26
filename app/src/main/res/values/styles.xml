@@ -2,12 +2,19 @@
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
+        <item name="android:colorBackground">@color/background_light</item>
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:navigationBarColor">#ff292929</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:textColorHint">@color/grey_300</item>
+        <!--<item name="android:windowBackground">@color/background_light</item>-->
+        <item name="android:windowAllowEnterTransitionOverlap">false</item>
+        <item name="android:windowAllowReturnTransitionOverlap">false</item>
         <item name="alertDialogTheme">@style/Theme.AppCompat.Light.Dialog.Alert.Self</item>
+
     </style>
+
 
         <!--定义AlertDialog的颜色-->
     <style name="Theme.AppCompat.Light.Dialog.Alert.Self" parent="@style/Theme.AppCompat.Light.Dialog.Alert">
@@ -15,14 +22,8 @@
     </style>
 
 
-    <style name="About">
 
-    </style>
 
-    <!--搜素主题-->
-    <style name="Search" parent="AppTheme">
-        <item name="android:windowAnimationStyle">@style/SearchWindowAnimations</item>
-    </style>
     <!--搜索的进出动画-->
     <style name="SearchWindowAnimations">
         <item name="android:windowEnterAnimation">@null</item>
@@ -30,29 +31,76 @@
     </style>
 
 
-    <!--ratingbar-->
-    <declare-styleable name="RatingBar">
-        <!--尺寸值-->
-        <attr name="starImageSize" format="dimension" />
-        <!--星星间距-->
-        <attr name="starPadding" format="dimension" />
-        <!--星星总数-->
-        <attr name="starCount" format="integer" />
-        <!--空白的星星资源文件值-->
-        <attr name="starEmpty" format="reference" />
-        <!--满星资源文件值-->
-        <attr name="starFill" format="reference" />
-        <!--半星资源文件值-->
-        <attr name="starHalf" format="reference" />
-        <!--是否可点击boolean值-->
-        <attr name="clickable" format="boolean" />
-        <!--当前进度float值-->
-        <attr name="starStep" format="float" />
-        <!--每次进度方式的值，整星还是半星-->
-        <attr name="stepSize">
-            <enum name="Half" value="0" />
-            <enum name="Full" value="1" />
-        </attr>
-    </declare-styleable>
 
+
+
+
+    <!--半透明主题-->
+    <style name="AppTheme.Translucent">
+        <item name="android:windowBackground">@color/scrim</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+    </style>
+
+
+
+    <!--关于的主题-->
+    <style name="About" parent="AppTheme">
+        <item name="android:windowBackground">@color/scrim</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowEnterTransition">@transition/about_enter</item>
+        <item name="android:windowReturnTransition">@transition/about_return</item>
+    </style>
+
+
+    <!--搜索主题-->
+    <style name="Search" parent="AppTheme.Translucent">
+        <item name="android:windowAnimationStyle">@style/SearchWindowAnimations</item>
+        <item name="android:statusBarColor">@color/colorPrimaryDark</item>
+        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowEnterTransition">@transition/search_enter</item>
+        <item name="android:windowReturnTransition">@transition/search_return</item>
+        <item name="android:windowSharedElementEnterTransition">@transition/search_shared_enter</item>
+        <item name="android:windowSharedElementReturnTransition">@transition/search_shared_return</item>
+        <item name="android:windowSharedElementsUseOverlay">true</item>
+    </style>
+
+    <!--白色的按钮主题-->
+    <style name="DarkOverlay" parent="@android:style/ThemeOverlay.Material.Dark.ActionBar">
+    </style>
+
+    <style name="SearchViewTheme" parent="DarkOverlay">
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="android:searchViewStyle">@style/Widget.DouBanPlus.SearchView</item>
+    </style>
+
+    <!--searchView的样式-->
+    <style name="Widget.DouBanPlus.SearchView" parent="android:style/Widget.Material.SearchView">
+        <!--去掉search图标-->
+        <item name="android:searchIcon">@android:color/transparent</item>
+        <!--透明背景-->
+        <item name="android:queryBackground">@android:color/transparent</item>
+        <!--透明的提交背景-->
+        <item name="android:submitBackground">@android:color/transparent</item>
+    </style>
+
+
+    <!--电影详情主题-->
+    <style name="MovieDetail" parent="AppTheme">
+        <!--<item name="android:windowContentTransitions">true</item>-->
+        <!--<item name="android:windowSharedElementEnterTransition">@transition/movie_detail_shared_enter</item>-->
+        <!--<item name="android:windowSharedElementReturnTransition">@transition/movie_detail_shared_return</item>-->
+        <!--<item name="android:windowEnterTransition">@transition/movie_detail_enter</item>-->
+        <!--<item name="android:windowReturnTransition">@transition/movie_detail_return</item>-->
+
+    </style>
 </resources>

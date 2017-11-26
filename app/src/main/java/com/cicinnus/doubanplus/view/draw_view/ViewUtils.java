@@ -16,7 +16,6 @@
 
 package com.cicinnus.doubanplus.view.draw_view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.Configuration;
@@ -45,9 +44,10 @@ import android.widget.TextView;
 /**
  * Utility methods for working with Views.
  */
- public class ViewUtils {
+public class ViewUtils {
 
-    private ViewUtils() { }
+    private ViewUtils() {
+    }
 
     public static int getActionBarSize(@NonNull Context context) {
         TypedValue value = new TypedValue();
@@ -62,15 +62,14 @@ import android.widget.TextView;
      * PhoneWindowManager.
      */
     public static boolean isNavBarOnBottom(@NonNull Context context) {
-        final Resources res= context.getResources();
+        final Resources res = context.getResources();
         final Configuration cfg = context.getResources().getConfiguration();
-        final DisplayMetrics dm =res.getDisplayMetrics();
+        final DisplayMetrics dm = res.getDisplayMetrics();
         boolean canMove = (dm.widthPixels != dm.heightPixels &&
                 cfg.smallestScreenWidthDp < 600);
-        return(!canMove || dm.widthPixels < dm.heightPixels);
+        return (!canMove || dm.widthPixels < dm.heightPixels);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static RippleDrawable createRipple(@ColorInt int color,
                                               @FloatRange(from = 0f, to = 1f) float alpha,
                                               boolean bounded) {
@@ -79,7 +78,6 @@ import android.widget.TextView;
                 bounded ? new ColorDrawable(Color.WHITE) : null);
     }
 
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     public static RippleDrawable createRipple(@Nullable Palette palette,
                                               @FloatRange(from = 0f, to = 1f) float darkAlpha,
                                               @FloatRange(from = 0f, to = 1f) float lightAlpha,
@@ -130,7 +128,7 @@ import android.widget.TextView;
 
     /**
      * Recursive binary search to find the best size for the text.
-     *
+     * <p>
      * Adapted from https://github.com/grantland/android-autofittextview
      */
     public static float getSingleLineTextSize(String text,
@@ -193,7 +191,6 @@ import android.widget.TextView;
             drawable.setAlpha(alpha);
         }
 
-        @TargetApi(Build.VERSION_CODES.KITKAT)
         @Override
         public int get(Drawable drawable) {
             return drawable.getAlpha();
@@ -216,12 +213,10 @@ import android.widget.TextView;
     public static final ViewOutlineProvider CIRCULAR_OUTLINE = new ViewOutlineProvider() {
         @Override
         public void getOutline(View view, Outline outline) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                outline.setOval(view.getPaddingLeft(),
-                        view.getPaddingTop(),
-                        view.getWidth() - view.getPaddingRight(),
-                        view.getHeight() - view.getPaddingBottom());
-            }
+            outline.setOval(view.getPaddingLeft(),
+                    view.getPaddingTop(),
+                    view.getWidth() - view.getPaddingRight(),
+                    view.getHeight() - view.getPaddingBottom());
         }
     };
 

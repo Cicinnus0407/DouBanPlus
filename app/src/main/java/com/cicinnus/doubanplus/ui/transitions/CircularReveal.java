@@ -41,7 +41,6 @@ import com.cicinnus.doubanplus.view.draw_view.AnimUtils;
  * {@link #centerOn(View) specifying} another view to center on; otherwise the target {@code view}'s
  * pivot point will be used.
  */
-@RequiresApi(Build.VERSION_CODES.KITKAT)
 public class CircularReveal extends Visibility {
 
     private Point center;
@@ -55,7 +54,6 @@ public class CircularReveal extends Visibility {
         super();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public CircularReveal(Context context, AttributeSet attrs) {
         super(context, attrs);
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircularReveal);
@@ -93,7 +91,6 @@ public class CircularReveal extends Visibility {
         this.endRadius = endRadius;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Animator onAppear(ViewGroup sceneRoot, View view,
                              TransitionValues startValues,
@@ -108,7 +105,6 @@ public class CircularReveal extends Visibility {
                 getFullyRevealedRadius(view)));
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public Animator onDisappear(ViewGroup sceneRoot, View view,
                                 TransitionValues startValues,

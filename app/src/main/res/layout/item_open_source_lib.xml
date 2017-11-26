@@ -8,9 +8,10 @@
     android:minHeight="?android:listPreferredItemHeight"
     android:orientation="vertical"
     android:paddingBottom="@dimen/dp_16"
-    android:clickable="true"
     android:paddingEnd="@dimen/dp_16"
-    android:paddingTop="@dimen/dp_16">
+    android:paddingTop="@dimen/dp_16"
+    android:clickable="true"
+    android:stateListAnimator="@animator/animator_raise">
 
     <ImageView
         android:id="@+id/iv_library_image"

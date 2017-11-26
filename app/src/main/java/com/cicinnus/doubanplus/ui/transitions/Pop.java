@@ -31,7 +31,6 @@ import android.view.ViewGroup;
 /**
  * A transition that animates the alpha, scale X & Y of a view simultaneously.
  */
-@RequiresApi(api = Build.VERSION_CODES.KITKAT)
 public class Pop extends Visibility {
 
     public Pop(Context context, AttributeSet attrs) {

@@ -76,9 +76,7 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
     @Override
     protected void initEventAndData() {
         setupSearchView();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            setupTransitions();
-        }
+        setupTransitions();
 
         initRv();
     }
@@ -99,6 +97,8 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
             public void onClick(View view, SearchResultBean.SubjectsBean bean) {
                 Intent intent = new Intent();
                 intent.setClass(mContext, MovieDetailActivity.class);
+                intent.putExtra("id", bean.getId());
+
                 ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(mContext,
                         Pair.create(view, mContext.getString(R.string.transition_movie_img)));
                 startActivity(intent, options.toBundle());
@@ -122,7 +122,6 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
     /**
      * 设置进入的揭露动画
      */
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void setupTransitions() {
         setEnterSharedElementCallback(new SharedElementCallback() {
             @Override
@@ -182,7 +181,6 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
 
     private SparseArray<Transition> transitions = new SparseArray<>();
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private Transition getTransition(@TransitionRes int transitionId) {
         Transition transition = transitions.get(transitionId);
         if (transition == null) {
@@ -198,11 +196,7 @@ public class SearchActivity extends BaseActivity<SearchMoviesPresenter> implemen
     @OnClick({R.id.scrim, R.id.searchback})
     protected void dismiss() {
         searchBack.setBackground(null);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            finishAfterTransition();
-        } else {
-            onBackPressed();
-        }
+        finishAfterTransition();
     }
 
 

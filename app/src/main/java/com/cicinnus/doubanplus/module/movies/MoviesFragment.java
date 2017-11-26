@@ -169,10 +169,8 @@ public class MoviesFragment extends BaseFragment<InTheaterMoviesPresenter> imple
                 showFilterList();
                 break;
             case R.id.menu_about:
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    startActivity(new Intent(mContext, AboutActivity.class),
-                            ActivityOptions.makeSceneTransitionAnimation(mContext).toBundle());
-                }
+                startActivity(new Intent(mContext, AboutActivity.class),
+                        ActivityOptions.makeSceneTransitionAnimation(mContext).toBundle());
                 break;
         }
 

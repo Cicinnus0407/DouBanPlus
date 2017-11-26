@@ -38,7 +38,6 @@ import com.cicinnus.doubanplus.R;
  * (https://www.google.com/design/spec/patterns/navigational-transitions.html#navigational-transitions-parent-to-child)
  * when combined with a {@link android.transition.ChangeBounds} on a shared element.
  */
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class LiftOff extends Transition {
 
     private static final String PROPNAME_ELEVATION = "plaid:liftoff:elevation";

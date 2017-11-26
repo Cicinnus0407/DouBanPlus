@@ -45,7 +45,6 @@ import java.util.List;
  * <p>
  * Currently only supports entering/exiting from the bottom edge.
  */
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class StaggeredDistanceSlide extends Visibility {
 
     private static final String PROPNAME_SCREEN_LOCATION = "android:visibility:screenLocation";

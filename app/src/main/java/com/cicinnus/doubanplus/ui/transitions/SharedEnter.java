@@ -29,7 +29,6 @@ import android.view.View;
  * Shared element transitions do not seem to like transitioning from a single view to two separate
  * views so we need to alter the ChangeBounds transition to compensate
  */
-@RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class SharedEnter extends ChangeBounds {
 
     private static final String PROPNAME_BOUNDS = "android:changeBounds:bounds";

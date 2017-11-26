@@ -1,6 +1,7 @@
 package com.cicinnus.doubanplus.module.movies_detail;
 
 import com.cicinnus.corelib.base.ICoreLoadingView;
+import com.cicinnus.doubanplus.module.movies_detail.model.MovieDetailModel;
 
 /**
  * @author Cicinnus
@@ -9,7 +10,7 @@ import com.cicinnus.corelib.base.ICoreLoadingView;
 
 public class MovieDetailContract {
     interface IMovieDetailContractView extends ICoreLoadingView{
-        void addMovieDetail(MovieDetailBean movieDetailBean);
+        void addMovieDetail(MovieDetailModel movieDetailModel);
     }
 
     interface IMovieDetailPresenter{

@@ -16,5 +16,5 @@
     <color name="scrim">#99323232</color>
     <color name="mid_grey">#40808080</color>
     <color name="grey_300">#ffe0e0e0</color>
-
+    <color name="dark_icon">#99000000</color>
 </resources>

@@ -21,12 +21,8 @@ public class ActivityUtils {
      */
     public static void jumpToActivity(Activity activity, Class<? extends Activity> targetAct) {
         Intent intent = new Intent(activity, targetAct);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Bundle bundle = ActivityOptions.makeSceneTransitionAnimation(activity).toBundle();
             activity.startActivity(intent, bundle);
-        } else {
-            activity.startActivity(intent);
-        }
 
     }
 

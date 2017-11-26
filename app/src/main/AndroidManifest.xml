@@ -13,11 +13,7 @@
         <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing|stateAlwaysHidden">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <!--关于-->
         <activity
@@ -30,8 +26,15 @@
             android:theme="@style/Search"/>
         <!--电影详情页-->
         <activity
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"
             android:name=".module.movies_detail.MovieDetailActivity"
-            android:theme="@style/MovieDetail" />
+            android:theme="@style/MovieDetail" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
