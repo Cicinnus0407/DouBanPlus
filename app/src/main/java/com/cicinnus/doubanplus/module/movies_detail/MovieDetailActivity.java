@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.os.Build;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -49,10 +52,16 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     RecyclerView rvMovieStar;
     @BindView(R.id.rv_movie_photos)
     RecyclerView rvMoviePhotos;
+    @BindView(R.id.ll_movie_award)
+    LinearLayout llMovieAward;
     @BindView(R.id.rv_movie_awards)
     RecyclerView rvMovieAwards;
+    @BindView(R.id.ll_movie_comment)
+    LinearLayout llMovieComment;
     @BindView(R.id.rv_movie_short_comment)
     RecyclerView rvShortComment;
+    @BindView(R.id.tv_short_comment_cnt)
+    TextView tvShortCommentCnt;
 
 
     private MovieCastsAdapter castsAdapter;
@@ -79,10 +88,10 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
     @Override
     protected void initEventAndData() {
 
-//        String id = getIntent().getStringExtra("id");
-        mPresenter.getMovieDetail("3231742");
-
+        String id = getIntent().getStringExtra("id");
+//        mPresenter.getMovieDetail("3231742");
         initRv();
+        mPresenter.getMovieDetail(id);
     }
 
     private void initRv() {
@@ -96,14 +105,14 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         rvMoviePhotos.setAdapter(moviePhotoAdapter);
         //获奖情况
         rvMovieAwards.setLayoutManager(new LinearLayoutManager(mContext));
+        rvMovieAwards.setNestedScrollingEnabled(false);
         movieAwardsAdapter = new MovieAwardsAdapter();
         rvMovieAwards.setAdapter(movieAwardsAdapter);
         //短评
         rvShortComment.setLayoutManager(new LinearLayoutManager(mContext));
+        rvShortComment.setNestedScrollingEnabled(false);
         shortCommentAdapter = new MovieShortCommentAdapter();
         rvShortComment.setAdapter(shortCommentAdapter);
-//        rvShortComment.setItemAnimator(commentAnimator);
-
     }
 
     @Override
@@ -137,10 +146,15 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
         Glide.with(mContext).load(movieDetailModel.getImage())
                 .into(ivMovieImg);
         tvMovieName.setText(movieDetailModel.getTitle());
-        //评分
-        tvMovieRating.setText(String.format("%s分", movieDetailModel.getRating()));
-        //评分人数
-        tvRatingCount.setText(String.format("(%s人评)", movieDetailModel.getRatingsCount()));
+        if (!movieDetailModel.getRating().equals("")) {
+            //评分
+            tvMovieRating.setText(String.format("%s分", movieDetailModel.getRating()));
+            //评分人数
+            tvRatingCount.setText(String.format("(%s人评)", movieDetailModel.getRatingsCount()));
+        } else {
+            tvMovieRating.setVisibility(View.GONE);
+            tvRatingCount.setText("暂无评分");
+        }
         //上映地点和时间
         tvYear.setText(StringUtils.getStringFromIterator(movieDetailModel.getReleaseInfoList().iterator(), " /"));
         //影片类型
@@ -150,8 +164,17 @@ public class MovieDetailActivity extends BaseActivity<MovieDetailPresenter> impl
 
         castsAdapter.setNewData(movieDetailModel.getCastsModel());
         moviePhotoAdapter.setNewData(movieDetailModel.getPicModel());
-        movieAwardsAdapter.setNewData(movieDetailModel.getAwardList());
-        shortCommentAdapter.setNewData(movieDetailModel.getShortComments());
+        //奖项
+        llMovieAward.setVisibility(movieDetailModel.getAwardList().size() == 0 ? View.GONE : View.VISIBLE);
+        if (movieDetailModel.getAwardList().size() > 0) {
+            movieAwardsAdapter.setNewData(movieDetailModel.getAwardList());
+        }
+        llMovieComment.setVisibility(movieDetailModel.getShortComments().size() == 0 ? View.GONE : View.VISIBLE);
+        if (movieDetailModel.getShortComments().size() > 0) {
+            shortCommentAdapter.setNewData(movieDetailModel.getShortComments());
+            tvShortCommentCnt.setText(String.format("查看%s短评", movieDetailModel.getShortCommentCnt()));
+        }
+
     }
 
 

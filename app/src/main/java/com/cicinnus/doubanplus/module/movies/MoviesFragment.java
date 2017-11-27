@@ -155,15 +155,10 @@ public class MoviesFragment extends BaseFragment<InTheaterMoviesPresenter> imple
         switch (item.getItemId()) {
 
             case R.id.menu_search:
-
-                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-                    View searchMenuView = toolbar.findViewById(R.id.menu_search);
-                    Bundle options = ActivityOptions.makeSceneTransitionAnimation(mContext, searchMenuView,
-                            getString(R.string.transition_search_back)).toBundle();
-                    startActivity(new Intent(mContext, SearchActivity.class), options);
-                } else {
-                    startActivity(new Intent(mContext, SearchActivity.class));
-                }
+                View searchMenuView = toolbar.findViewById(R.id.menu_search);
+                Bundle options = ActivityOptions.makeSceneTransitionAnimation(mContext, searchMenuView,
+                        getString(R.string.transition_search_back)).toBundle();
+                startActivity(new Intent(mContext, SearchActivity.class), options);
                 break;
             case R.id.menu_filter:
                 showFilterList();

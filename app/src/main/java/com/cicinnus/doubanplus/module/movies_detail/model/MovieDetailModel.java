@@ -29,6 +29,8 @@ public class MovieDetailModel {
     private List<Award> awardList;
     //短评
     private List<ShortComment> shortComments;
+    //短评数量
+    private String shortCommentCnt;
 
 
 
@@ -58,6 +60,14 @@ public class MovieDetailModel {
 
     public void setShortComments(List<ShortComment> shortComments) {
         this.shortComments = shortComments;
+    }
+
+    public String getShortCommentCnt() {
+        return shortCommentCnt;
+    }
+
+    public void setShortCommentCnt(String shortCommentCnt) {
+        this.shortCommentCnt = shortCommentCnt;
     }
 
 
@@ -273,6 +283,8 @@ public class MovieDetailModel {
         public void setRatingStar(String ratingStar) {
             this.ratingStar = ratingStar;
         }
+
+
     }
 
 }

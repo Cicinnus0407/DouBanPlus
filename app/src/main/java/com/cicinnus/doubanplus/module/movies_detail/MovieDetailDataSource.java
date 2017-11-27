@@ -150,9 +150,16 @@ public class MovieDetailDataSource {
                             //评分字符串
                             String ratingStr = commentElement.getElementsByClass("comment-info").first().getElementsByTag("a").next().next().attr("class");
                             shortComment.setRatingStar(ratingStr);
+
+
                             shortComments.add(shortComment);
                         }
                         detailModel.setShortComments(shortComments);
+                        //短评数量
+                        String shortCommentCnt = document.select("div.mod-hd").first().getElementsByTag("span").get(1).text();
+                        detailModel.setShortCommentCnt(shortCommentCnt .substring(1,shortCommentCnt.length()-1).trim());
+
+
                         return detailModel;
                     }
                 });

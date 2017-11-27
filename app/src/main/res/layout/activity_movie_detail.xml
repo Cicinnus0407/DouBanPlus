@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
@@ -40,6 +41,7 @@
                 android:layout_height="wrap_content" />
 
             <LinearLayout
+                android:id="@+id/ll_movie_award"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -48,7 +50,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="@dimen/dp_4"
-                    android:paddingLeft="@dimen/dp_8"
+                    android:layout_marginLeft="@dimen/dp_8"
                     android:text="荣誉奖项"
                     android:textColor="@color/text_primary"
                     android:textSize="15sp" />
@@ -61,10 +63,39 @@
 
             </LinearLayout>
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_movie_short_comment"
+            <LinearLayout
+                android:id="@+id/ll_movie_comment"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/dp_4"
+                    android:paddingLeft="@dimen/dp_4"
+                    android:text="热门短评"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_movie_short_comment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:id="@+id/tv_short_comment_cnt"
+                    tools:text="查看全部xx条短评"
+                    android:padding="@dimen/dp_10"
+                    android:layout_gravity="center"
+                    android:textColor="@color/colorPrimary"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+
 
 
         </LinearLayout>

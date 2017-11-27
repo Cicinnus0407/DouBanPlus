@@ -12,6 +12,10 @@ import com.cicinnus.doubanplus.module.movies_detail.model.MovieDetailModel;
  */
 
 public class MovieShortCommentAdapter extends BaseQuickAdapter<MovieDetailModel.ShortComment, CustomBaseViewHolder> {
+
+
+    private int[] defaultAvatars = new int[]{R.drawable.avatar_1, R.drawable.avatar_2, R.drawable.avatar_2, R.drawable.avatar_3, R.drawable.avatar_4, R.drawable.avatar_5};
+
     public MovieShortCommentAdapter() {
         super(R.layout.item_movie_short_comment);
     }
@@ -21,6 +25,7 @@ public class MovieShortCommentAdapter extends BaseQuickAdapter<MovieDetailModel.
         helper.setText(R.id.tv_comment_author, item.getAuthor())
                 .setText(R.id.tv_comment_content, item.getContent())
                 .setText(R.id.tv_comment_date, item.getDate())
-                .setText(R.id.tv_likes_count, item.getLikeCnt());
+                .setText(R.id.tv_likes_count, item.getLikeCnt())
+                .setImageResource(R.id.iv_comment_avatar, defaultAvatars[helper.getAdapterPosition() % 5]);
     }
 }
